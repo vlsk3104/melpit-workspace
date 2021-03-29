@@ -21,6 +21,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// ログインしていないとアクセスできないように、authミドルウェアを適応する
+Route::middleware('auth')
+    ->group(function () {
+        Route::get('sell', 'SellController@showSellForm')->name('sell');
+    });
+
 Route::prefix('mypage')
     ->namespace('MyPage')
     ->middleware('auth')
